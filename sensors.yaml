@@ -1,0 +1,44 @@
+# CPU temperature
+- platform: command_line
+  name: CPU Temperature
+  command: "cat /sys/class/thermal/thermal_zone0/temp"
+  unit_of_measurement: "°C"
+  value_template: '{{ (value | multiply(0.001)) | round(1) }}'
+
+# Mi Flora 1
+- platform: miflora
+  name: Plant 1
+  mac: 'C4:7C:8D:6A:C4:D6'
+
+# Mi Flora 2
+- platform: miflora
+  name: Plant 2
+  mac: 'C4:7C:8D:67:09:BF'
+
+# Air Purifier
+- platform: template
+  sensors:
+    purifier_fan_mode:
+      friendly_name: "Ventilátor mód"
+      value_template: "{{ states.fan.xiaomi_miio_device.attributes.speed }}"
+    purifier_temperature:
+      friendly_name: "Hömérséklet"
+      value_template: "{{ states.fan.xiaomi_miio_device.attributes.temperature }}"
+    purifier_humidity:
+      friendly_name: "Páratartalom"
+      value_template: "{{ states.fan.xiaomi_miio_device.attributes.humidity }}"
+    purifier_aqi:
+      friendly_name: "Levegö minöség index"
+      unit_of_measurement: 'aqi'
+      value_template: "{{ states.fan.xiaomi_miio_device.attributes.aqi }}"
+    purifier_favspeed:
+      friendly_name: "Ventilátor kedvenc sebesség"
+      value_template: "{{ states.fan.xiaomi_miio_device.attributes.favorite_level }}"
+    purifier_filter_hours_used:
+      friendly_name: "Filterhasználat"
+      unit_of_measurement: 'óra'
+      value_template: "{{ states.fan.xiaomi_miio_device.attributes.filter_hours_used }}"
+    purifier_filter_life_remaining:
+      friendly_name: "Filter"
+      unit_of_measurement: '%'
+      value_template: "{{ states.fan.xiaomi_miio_device.attributes.filter_life_remaining }}"

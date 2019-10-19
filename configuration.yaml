@@ -1,0 +1,91 @@
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+# Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+# http:
+#   base_url: example.duckdns.org:8123
+
+recorder:
+  purge_keep_days: 31
+  db_url: !secret mariadb_url
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+# Components
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+sensor: !include sensors.yaml
+
+# UIs
+frontend: 
+  themes: !include themes.yaml
+
+# Mi Home
+xiaomi_aqara:
+  discovery_retry: 10
+  gateways:
+    - key: !secret gw_token
+      mac: !secret gw_mac
+      host: !secret gw_ip
+
+# Gateway alarm: https://github.com/hekm77/homeassistant-config/tree/master/custom_components/xiaomi_gateway_alarm
+#switch:
+#  - platform: xiaomi_gateway_alarm
+#    name: Xiaomi Gateway Alarm
+#    host: !secret gw_ip
+#    token: !secret gw_token
+
+# Mi Air Purifier
+fan:
+  - platform: xiaomi_miio
+    host: 192.168.0.121
+    token: !secret xap_token
+
+# Yeelight
+discovery:
+  ignore:
+    - yeelight
+yeelight:
+  devices:
+    192.168.0.158:
+      name: Nappali
+
+# Plants
+plant:
+  zameoculcas:
+    sensors:
+      moisture: sensor.plant_2_moisture
+      battery: sensor.plant_2_battery
+      temperature: sensor.plant_2_temperature
+      conductivity: sensor.plant_2_conductivity
+      brightness: sensor.plant_2_light_intensity
+    min_moisture: 15
+    max_moisture: 60
+    min_battery: 10
+    min_conductivity: 350
+    max_conductivity: 2000
+    min_brightness: 600
+    max_brightness: 20000
+    min_temperature: 10
+    max_temperature: 30
+
+  aloe_vera:
+    sensors:
+      moisture: sensor.plant_1_moisture
+      battery: sensor.plant_1_battery
+      temperature: sensor.plant_1_temperature
+      conductivity: sensor.plant_1_conductivity
+      brightness: sensor.plant_1_light_intensity
+    min_moisture: 7
+    max_moisture: 50
+    min_battery: 10
+    min_conductivity: 300
+    max_conductivity: 1000
+    min_brightness: 3000
+    max_brightness: 70000
+    min_temperature: 8
+    max_temperature: 35
