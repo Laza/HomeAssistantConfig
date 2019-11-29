@@ -5,6 +5,14 @@
   unit_of_measurement: "°C"
   value_template: '{{ (value | multiply(0.001)) | round(1) }}'
 
+# Broadlink
+- platform: broadlink
+  scan_interval: 120
+  host: !secret fluoreon_ip
+  mac: !secret fluoreon_mac
+  monitored_conditions:
+    - 'temperature'
+
 # Mi Flora 1
 - platform: miflora
   name: Plant 1

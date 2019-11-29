@@ -19,6 +19,20 @@ group: !include groups.yaml
 automation: !include automations.yaml
 script: !include scripts.yaml
 sensor: !include sensors.yaml
+climate: !include climate.yaml
+
+# Gateway alarm: https://github.com/hekm77/homeassistant-config/tree/master/custom_components/xiaomi_gateway_alarm
+#switch:
+#  - platform: xiaomi_gateway_alarm
+#    name: Xiaomi Gateway Alarm
+#    host: !secret gw_ip
+#    token: !secret gw_token
+
+# Fluoreon WiFi thermostat
+switch:
+  - platform: broadlink
+    host: !secret fluoreon_ip
+    mac: !secret fluoreon_mac
 
 # UIs
 frontend: 
@@ -32,12 +46,6 @@ xiaomi_aqara:
       mac: !secret gw_mac
       host: !secret gw_ip
 
-# Gateway alarm: https://github.com/hekm77/homeassistant-config/tree/master/custom_components/xiaomi_gateway_alarm
-#switch:
-#  - platform: xiaomi_gateway_alarm
-#    name: Xiaomi Gateway Alarm
-#    host: !secret gw_ip
-#    token: !secret gw_token
 
 # Mi Air Purifier
 fan:
