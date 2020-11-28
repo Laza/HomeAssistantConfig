@@ -1,6 +1,6 @@
 # Fluoreon Thermostat
 - platform: fluoreon
-  name: Home_Thermostat
+  name: Fütés
   mac: '78:0F:77:D4:1B:42'
   host: 192.168.0.170
   use_external_temp: false

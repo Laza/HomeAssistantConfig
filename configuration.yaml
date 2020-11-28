@@ -7,7 +7,7 @@ default_config:
 #   base_url: example.duckdns.org:8123
 
 recorder:
-  purge_keep_days: 31
+  purge_keep_days: 92
   db_url: !secret mariadb_url
 
 # Text to speech
@@ -36,15 +36,31 @@ switch:
 
 # UIs
 frontend: 
-  themes: !include themes.yaml
+#  themes: !include themes.yaml
+  themes: !include_dir_merge_named themes
+
+# Raspberry Pi Camera
+ffmpeg:
+
+camera:
+  - platform: ffmpeg
+    name: Kamera
+    input: !secret yi_input
+
+  - platform: yi
+    name: Camera
+    host: !secret yi_ip
+    password: !secret yi_pw
+    path: /tmp/sd/record
+    ffmpeg_arguments: '-vf scale=800:450'
 
 # Mi Home
-xiaomi_aqara:
-  discovery_retry: 10
-  gateways:
-    - key: !secret gw_token
-      mac: !secret gw_mac
-      host: !secret gw_ip
+#xiaomi_aqara:
+#  discovery_retry: 10
+#  gateways:
+#    - key: !secret gw_token
+#      mac: !secret gw_mac
+#      host: !secret gw_ip
 
 
 # Mi Air Purifier
@@ -64,23 +80,6 @@ yeelight:
 
 # Plants
 plant:
-  zameoculcas:
-    sensors:
-      moisture: sensor.plant_2_moisture
-      battery: sensor.plant_2_battery
-      temperature: sensor.plant_2_temperature
-      conductivity: sensor.plant_2_conductivity
-      brightness: sensor.plant_2_light_intensity
-    min_moisture: 15
-    max_moisture: 60
-    min_battery: 10
-    min_conductivity: 350
-    max_conductivity: 2000
-    min_brightness: 600
-    max_brightness: 20000
-    min_temperature: 10
-    max_temperature: 30
-
   aloe_vera:
     sensors:
       moisture: sensor.plant_1_moisture
@@ -97,3 +96,37 @@ plant:
     max_brightness: 70000
     min_temperature: 8
     max_temperature: 35
+
+  zameoculcas:
+    sensors:
+      moisture: sensor.plant_2_moisture
+      battery: sensor.plant_2_battery
+      temperature: sensor.plant_2_temperature
+      conductivity: sensor.plant_2_conductivity
+      brightness: sensor.plant_2_light_intensity
+    min_moisture: 15
+    max_moisture: 60
+    min_battery: 10
+    min_conductivity: 350
+    max_conductivity: 2000
+    min_brightness: 600
+    max_brightness: 20000
+    min_temperature: 10
+    max_temperature: 32
+
+  dracaena:
+    sensors:
+      moisture: sensor.plant_3_moisture
+      battery: sensor.plant_3_battery
+      temperature: sensor.plant_3_temperature
+      conductivity: sensor.plant_3_conductivity
+      brightness: sensor.plant_3_light_intensity
+    min_moisture: 15
+    max_moisture: 60
+    min_battery: 10
+    min_conductivity: 350
+    max_conductivity: 2000
+    min_brightness: 1500
+    max_brightness: 6000
+    min_temperature: 10
+    max_temperature: 32

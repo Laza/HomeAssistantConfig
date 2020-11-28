@@ -15,13 +15,18 @@
 
 # Mi Flora 1
 - platform: miflora
-  name: Plant 1
+  name: plant_1
   mac: 'C4:7C:8D:6A:C4:D6'
 
 # Mi Flora 2
 - platform: miflora
-  name: Plant 2
+  name: plant_2
   mac: 'C4:7C:8D:67:09:BF'
+
+# Mi Flora 3
+- platform: miflora
+  name: plant_3
+  mac: '80:EA:CA:88:E2:AD'
 
 # Air Purifier
 - platform: template
